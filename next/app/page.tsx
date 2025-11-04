@@ -1,7 +1,7 @@
 "use client";
 import { Calendar } from "@/components/ui/calendar";
 import * as React from "react";
-import { cn } from "@/lib/utils";
+import { cn, formatTime12Hour } from "@/lib/utils";
 
 type TimeSlot = {
   start: string;
@@ -36,6 +36,36 @@ export default function Home() {
   const [interval, setInterval] = React.useState<IntervalType>(30);
   const [availability] =
     React.useState<WeeklyAvailability>(DEFAULT_AVAILABILITY);
+  const [bookingStatus, setBookingStatus] = React.useState<string>("");
+
+  const handleBooking = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setBookingStatus("Sending...");
+
+    const formData = new FormData(e.currentTarget);
+
+    const response = await fetch("/api/booking", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: formData.get("name"),
+        email: formData.get("email"),
+        date: date?.toISOString(),
+        time: selectedTime,
+        duration: interval,
+      }),
+    });
+
+    if (response.ok) {
+      setBookingStatus("✓ Booking confirmed! Check your email.");
+      setTimeout(() => {
+        setSelectedTime(null);
+        setBookingStatus("");
+      }, 3000);
+    } else {
+      setBookingStatus("✗ Failed to book. Try again.");
+    }
+  };
 
   const generateTimeSlots = (date: Date): string[] => {
     const dayOfWeek = date.getDay();
@@ -130,7 +160,7 @@ export default function Home() {
                             : "border hover:bg-secondary"
                         )}
                       >
-                        {time}
+                        {formatTime12Hour(time)}
                       </button>
                     ))}
                   </div>
@@ -143,19 +173,68 @@ export default function Home() {
             )}
 
             {selectedTime && date && (
-              <div className="rounded-lg border bg-muted p-4 shadow-sm">
-                <h3 className="mb-2 font-semibold">Selected Booking</h3>
-                <p className="text-sm">
-                  <span className="font-medium">Date:</span>{" "}
-                  {date.toLocaleDateString()}
-                </p>
-                <p className="text-sm">
-                  <span className="font-medium">Time:</span> {selectedTime}
-                </p>
-                <p className="text-sm">
-                  <span className="font-medium">Duration:</span> {interval}{" "}
-                  minutes
-                </p>
+              <div className="flex flex-col gap-4">
+                <div className="rounded-lg border bg-muted p-4 shadow-sm">
+                  <h3 className="mb-2 font-semibold">Selected Booking</h3>
+                  <p className="text-sm">
+                    <span className="font-medium">Date:</span>{" "}
+                    {date.toLocaleDateString()}
+                  </p>
+                  <p className="text-sm">
+                    <span className="font-medium">Time:</span> {selectedTime}
+                  </p>
+                  <p className="text-sm">
+                    <span className="font-medium">Duration:</span> {interval}{" "}
+                    minutes
+                  </p>
+                </div>
+
+                <div className="rounded-lg border p-4 shadow-sm">
+                  <h3 className="mb-3 font-semibold">Confirm Booking</h3>
+                  <form onSubmit={handleBooking} className="space-y-3">
+                    <div>
+                      <label className="text-sm font-medium">Name</label>
+                      <input
+                        type="text"
+                        name="name"
+                        required
+                        className="mt-1 w-full rounded-md border px-3 py-2 text-sm"
+                        placeholder="John Doe"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium">Email</label>
+                      <input
+                        type="email"
+                        name="email"
+                        required
+                        className="mt-1 w-full rounded-md border px-3 py-2 text-sm"
+                        placeholder="john@example.com"
+                      />
+                    </div>
+                    <button
+                      type="submit"
+                      disabled={bookingStatus === "Sending..."}
+                      className="w-full rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
+                    >
+                      {bookingStatus === "Sending..."
+                        ? "Sending..."
+                        : "Confirm Booking"}
+                    </button>
+                    {bookingStatus && bookingStatus !== "Sending..." && (
+                      <p
+                        className={cn(
+                          "text-center text-sm",
+                          bookingStatus.startsWith("✓")
+                            ? "text-green-600"
+                            : "text-red-600"
+                        )}
+                      >
+                        {bookingStatus}
+                      </p>
+                    )}
+                  </form>
+                </div>
               </div>
             )}
           </div>
