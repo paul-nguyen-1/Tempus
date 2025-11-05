@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import ical from "ical-generator";
 import nodemailer from "nodemailer";
-import { formatTime12Hour } from "@/lib/utils";
 
 export async function POST(request: Request) {
   const { name, email, date, time, duration } = await request.json();
