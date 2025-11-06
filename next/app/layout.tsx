@@ -1,5 +1,4 @@
 import { CheckSession } from "@/components/checkSession";
-import { useSession } from "@/lib/auth-client";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
