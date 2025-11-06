@@ -2,7 +2,14 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { CircleCheckIcon, CircleHelpIcon, CircleIcon } from "lucide-react";
+import {
+  CircleCheckIcon,
+  CircleHelpIcon,
+  CircleIcon,
+  LogOut,
+} from "lucide-react";
+import { signIn, signOut, useSession } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 import {
   NavigationMenu,
@@ -13,6 +20,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import { Button } from "@/components/ui/button";
 import { useIsMobile } from "./hooks/use-mobile";
 
 const components: { title: string; href: string; description: string }[] = [
@@ -53,8 +61,15 @@ const components: { title: string; href: string; description: string }[] = [
   },
 ];
 
-export function Navigation() {
+export function Navbar() {
   const isMobile = useIsMobile();
+  const { data: session } = useSession();
+  const router = useRouter();
+
+  const handleSignOut = async () => {
+    await signOut();
+    router.push("/login");
+  };
 
   return (
     <NavigationMenu viewport={isMobile}>
@@ -189,6 +204,21 @@ export function Navigation() {
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
+
+        {/* Sign Out Button */}
+        {session && (
+          <NavigationMenuItem className="ml-auto">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleSignOut}
+              className="gap-2"
+            >
+              <LogOut className="h-4 w-4" />
+              Sign Out
+            </Button>
+          </NavigationMenuItem>
+        )}
       </NavigationMenuList>
     </NavigationMenu>
   );
