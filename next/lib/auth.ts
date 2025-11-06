@@ -10,14 +10,10 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
-  socialProviders: {
-    github: {
-      clientId: process.env.GITHUB_CLIENT_ID as string,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
-    },
-    baseURL: process.env.NEXT_PUBLIC_BASE_URL,
-    trustedOrigins: [
-      ...(process.env.VERCEL_URL ? [`https://${process.env.VERCEL_URL}`] : []),
-    ],
-  },
+  // socialProviders: {
+  //   github: {
+  //     clientId: process.env.GITHUB_CLIENT_ID as string,
+  //     clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+  //   },
+  // },
 });
