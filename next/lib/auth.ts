@@ -9,7 +9,6 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
-  basePath: "/api/auth",
   trustedOrigins: ["http://localhost:3000", "https://tempus-swart.vercel.app"],
   secret: process.env.AUTH_SECRET,
 });
