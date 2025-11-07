@@ -9,7 +9,7 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
-  baseURL: "https://tempus-swart.vercel.app/api/auth",
+  baseURL: "https://tempus-swart.vercel.app/",
   trustedOrigins: [
     "http://localhost:3000",
     "https://tempus-swart.vercel.app",
