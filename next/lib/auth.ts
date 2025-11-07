@@ -9,11 +9,10 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
-  baseURL: process.env.BETTER_AUTH_URL as string,
+  baseURL: "https://tempus-swart.vercel.app/api/auth",
   trustedOrigins: [
     "http://localhost:3000",
-    process.env.BETTER_AUTH_URL as string,
-    "https://*.vercel.app",
+    "https://tempus-swart.vercel.app",
   ],
   secret: process.env.AUTH_SECRET,
 });
