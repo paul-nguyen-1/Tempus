@@ -12,7 +12,6 @@ export const auth = betterAuth({
     enabled: true,
   },
   baseURL: process.env.BETTER_AUTH_URL || "https://tempus-swart.vercel.app",
-  basePath: "/api/auth",
   trustedOrigins: [
     process.env.BETTER_AUTH_URL as string,
     "http://localhost:3000",
