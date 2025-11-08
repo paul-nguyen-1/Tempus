@@ -1,6 +1,8 @@
+import { PrismaClient } from "@/app/generated/prisma/client";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import prisma from "./prisma";
+
+const prisma = new PrismaClient();
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -9,6 +11,10 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
-  trustedOrigins: ["http://localhost:3000", "https://tempus-swart.vercel.app"],
-  secret: process.env.AUTH_SECRET,
+  baseURL: process.env.BETTER_AUTH_URL as string,
+  trustedOrigins: [
+    process.env.BETTER_AUTH_URL as string,
+    "http://localhost:3000",
+  ],
+  secret: process.env.BETTER_AUTH_SECRET as string,
 });
