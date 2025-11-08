@@ -12,21 +12,23 @@ export function CheckSession({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   const hiddenRoutes = ["/login", "/signup"];
-  const isHiddenRoute = hiddenRoutes.some(
-    (route) => pathname === route || pathname.startsWith(`${route}?`)
-  );
+  const isHiddenRoute = hiddenRoutes.includes(pathname);
 
   useEffect(() => {
-    if (isPending) {
+    if (isPending) return;
+
+    if (session && isHiddenRoute) {
+      router.replace("/");
       return;
     }
 
     if (!session && !isHiddenRoute) {
       router.replace("/login");
+      return;
     }
   }, [session, isPending, isHiddenRoute, router]);
 
-  if (isPending || (!session && !isHiddenRoute)) {
+  if (isPending || (!session && !isHiddenRoute) || (session && isHiddenRoute)) {
     return <Loader />;
   }
 
