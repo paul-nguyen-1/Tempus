@@ -12,7 +12,7 @@ export async function handleSignUp(
       password, // user password -> min 8 characters by default
       name, // user display name
       image, // User image URL (optional)
-      callbackURL: "/dashboard", // A URL to redirect to after the user verifies their email (optional)
+      callbackURL: "/", // A URL to redirect to after the user verifies their email (optional)
     },
     {
       onRequest: (ctx) => {
