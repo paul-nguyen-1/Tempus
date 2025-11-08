@@ -10,22 +10,29 @@ export function CheckSession({ children }: { children: React.ReactNode }) {
   const { data: session, isPending } = useSession();
   const router = useRouter();
   const pathname = usePathname();
+
   const hiddenRoutes = ["/login", "/signup"];
-  const hideNavbar = hiddenRoutes.includes(pathname);
+  const isHiddenRoute = hiddenRoutes.some(
+    (route) => pathname === route || pathname.startsWith(`${route}?`)
+  );
 
   useEffect(() => {
-    if (!isPending && !session && !hiddenRoutes.includes(pathname)) {
-      router.push("/login");
+    if (isPending) {
+      return;
     }
-  }, [session, isPending, pathname, router]);
 
-  if (isPending) {
+    if (!session && !isHiddenRoute) {
+      router.replace("/login");
+    }
+  }, [session, isPending, isHiddenRoute, router]);
+
+  if (isPending || (!session && !isHiddenRoute)) {
     return <Loader />;
   }
 
   return (
     <>
-      {!hideNavbar && session && <Navbar />}
+      {!isHiddenRoute && session && <Navbar />}
       {children}
     </>
   );
