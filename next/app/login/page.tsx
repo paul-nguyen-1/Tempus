@@ -37,7 +37,8 @@ export default function Login() {
         password,
       },
       {
-        onSuccess: () => {
+        onSuccess: async () => {
+          await new Promise((res) => setTimeout(res, 500));
           router.push("/");
         },
         onError: (ctx) => {
