@@ -12,24 +12,90 @@ model User {
   id            String    @id @default(cuid())
   email         String    @unique
   name          String?
-  posts         Post[]
   emailVerified Boolean   @default(false)
   image         String?
+  slug          String?   @unique
+  timezone      String    @default("America/Chicago")
+  bio           String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @default(now()) @updatedAt
   sessions      Session[]
   accounts      Account[]
+  eventTypes    EventType[]
+  bookings      Booking[]
+  availability  Availability[]
 
   @@map("user")
 }
 
-model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  authorId  String
-  author    User    @relation(fields: [authorId], references: [id])
+model EventType {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title       String
+  description String?
+  duration    Int
+  slug        String
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  bookings    Booking[]
+  
+  @@unique([userId, slug])
+  @@map("event_type")
+}
+
+model Booking {
+  id           String    @id @default(cuid())
+  eventTypeId  String
+  eventType    EventType @relation(fields: [eventTypeId], references: [id], onDelete: Cascade)
+  userId       String
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  guestName    String
+  guestEmail   String
+  guestNotes   String?
+  startTime    DateTime
+  endTime      DateTime
+  timezone     String
+  status       BookingStatus @default(CONFIRMED)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  
+  @@index([userId, startTime])
+  @@map("booking")
+}
+
+enum BookingStatus {
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+model Availability {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  type      AvailabilityType
+  
+  dayOfWeek Int?
+  
+  startDate DateTime?
+  endDate   DateTime?
+  
+  startTime String
+  endTime   String
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@map("availability")
+}
+
+enum AvailabilityType {
+  RECURRING
+  DATE_RANGE
+  SPECIFIC_DATE
 }
 
 model Session {

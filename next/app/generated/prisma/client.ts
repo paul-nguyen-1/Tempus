@@ -39,9 +39,6 @@ export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts exten
 export { Prisma }
 
 
-// file annotations for bundling tools to include these files
-path.join(__dirname, "libquery_engine-darwin-arm64.dylib.node")
-path.join(process.cwd(), "app/generated/prisma/libquery_engine-darwin-arm64.dylib.node")
 
 /**
  * Model User
@@ -49,10 +46,20 @@ path.join(process.cwd(), "app/generated/prisma/libquery_engine-darwin-arm64.dyli
  */
 export type User = Prisma.UserModel
 /**
- * Model Post
+ * Model EventType
  * 
  */
-export type Post = Prisma.PostModel
+export type EventType = Prisma.EventTypeModel
+/**
+ * Model Booking
+ * 
+ */
+export type Booking = Prisma.BookingModel
+/**
+ * Model Availability
+ * 
+ */
+export type Availability = Prisma.AvailabilityModel
 /**
  * Model Session
  * 
