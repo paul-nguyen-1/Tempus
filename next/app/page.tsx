@@ -104,7 +104,9 @@ export default function Home() {
 
   React.useEffect(() => {
     const fetchBookings = async () => {
-      if (!session?.user?.id || !date) return;
+      if (!session?.user?.id || !date) {
+        return;
+      }
 
       try {
         const response = await fetch(
@@ -149,7 +151,9 @@ export default function Home() {
       return specificDate.getTime() === checkDateOnly.getTime();
     });
 
-    if (isSpecificDate) return true;
+    if (isSpecificDate) {
+      return true;
+    }
 
     const isInRange = dateRanges.some((range) => {
       const rangeStartDate = new Date(range.start);

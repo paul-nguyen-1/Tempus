@@ -32,40 +32,53 @@ export async function GET(
     const specificDates: Date[] = [];
     const dateRanges: { start: Date; end: Date }[] = [];
 
-    allAvailability.forEach((av) => {
-      if (av.type === "RECURRING" && av.dayOfWeek !== null) {
-        if (!weeklyAvailability[av.dayOfWeek].available) {
-          weeklyAvailability[av.dayOfWeek] = { available: true, slots: [] };
+    allAvailability.forEach((availability) => {
+      if (
+        availability.type === "RECURRING" &&
+        availability.dayOfWeek !== null
+      ) {
+        if (!weeklyAvailability[availability.dayOfWeek].available) {
+          weeklyAvailability[availability.dayOfWeek] = {
+            available: true,
+            slots: [],
+          };
         }
-        weeklyAvailability[av.dayOfWeek].slots.push({
-          start: av.startTime,
-          end: av.endTime,
+        weeklyAvailability[availability.dayOfWeek].slots.push({
+          start: availability.startTime,
+          end: availability.endTime,
         });
-      } else if (av.type === "DATE_RANGE" && av.startDate && av.endDate) {
+      } else if (
+        availability.type === "DATE_RANGE" &&
+        availability.startDate &&
+        availability.endDate
+      ) {
         dateRanges.push({
-          start: new Date(av.startDate),
-          end: new Date(av.endDate),
+          start: new Date(availability.startDate),
+          end: new Date(availability.endDate),
         });
-      } else if (av.type === "SPECIFIC_DATE" && av.startDate) {
-        specificDates.push(new Date(av.startDate));
+      } else if (
+        availability.type === "SPECIFIC_DATE" &&
+        availability.startDate
+      ) {
+        specificDates.push(new Date(availability.startDate));
       }
     });
 
     return NextResponse.json({
       weekly: weeklyAvailability,
-      specificDates: specificDates.map((d) => d.toISOString()),
-      dateRanges: dateRanges.map((r) => ({
-        start: r.start.toISOString(),
-        end: r.end.toISOString(),
+      specificDates: specificDates.map((date) => date.toISOString()),
+      dateRanges: dateRanges.map((range) => ({
+        start: range.start.toISOString(),
+        end: range.end.toISOString(),
       })),
-      all: allAvailability.map((av) => ({
-        id: av.id,
-        type: av.type,
-        dayOfWeek: av.dayOfWeek,
-        startDate: av.startDate,
-        endDate: av.endDate,
-        startTime: av.startTime,
-        endTime: av.endTime,
+      all: allAvailability.map((availability) => ({
+        id: availability.id,
+        type: availability.type,
+        dayOfWeek: availability.dayOfWeek,
+        startDate: availability.startDate,
+        endDate: availability.endDate,
+        startTime: availability.startTime,
+        endTime: availability.endTime,
       })),
     });
   } catch (error) {
