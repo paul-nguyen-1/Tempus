@@ -22,7 +22,7 @@ const config: runtime.GetPrismaClientConfig = {
       "value": "prisma-client"
     },
     "output": {
-      "value": "/Users/swaggy/Desktop/Tempus/next/app/generated/prisma",
+      "value": "/vercel/sandbox/primary/next/app/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -31,12 +31,12 @@ const config: runtime.GetPrismaClientConfig = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "darwin-arm64",
+        "value": "rhel-openssl-3.0.x",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/swaggy/Desktop/Tempus/next/prisma/schema.prisma",
+    "sourceFilePath": "/vercel/sandbox/primary/next/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativePath": "../../../prisma",
