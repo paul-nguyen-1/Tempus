@@ -8,7 +8,19 @@
 * 🟢 You can import this file directly.
 */
 
+export const BookingStatus = {
+  CONFIRMED: 'CONFIRMED',
+  CANCELLED: 'CANCELLED',
+  COMPLETED: 'COMPLETED'
+} as const
+
+export type BookingStatus = (typeof BookingStatus)[keyof typeof BookingStatus]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const AvailabilityType = {
+  RECURRING: 'RECURRING',
+  DATE_RANGE: 'DATE_RANGE',
+  SPECIFIC_DATE: 'SPECIFIC_DATE'
+} as const
+
+export type AvailabilityType = (typeof AvailabilityType)[keyof typeof AvailabilityType]

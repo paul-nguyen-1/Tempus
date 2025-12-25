@@ -22,10 +22,20 @@ export * from './enums';
  */
 export type User = Prisma.UserModel
 /**
- * Model Post
+ * Model EventType
  * 
  */
-export type Post = Prisma.PostModel
+export type EventType = Prisma.EventTypeModel
+/**
+ * Model Booking
+ * 
+ */
+export type Booking = Prisma.BookingModel
+/**
+ * Model Availability
+ * 
+ */
+export type Availability = Prisma.AvailabilityModel
 /**
  * Model Session
  * 

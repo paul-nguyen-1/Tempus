@@ -49,7 +49,9 @@ export const AnyNull = runtime.objectEnumValues.instances.AnyNull
 
 export const ModelName = {
   User: 'User',
-  Post: 'Post',
+  EventType: 'EventType',
+  Booking: 'Booking',
+  Availability: 'Availability',
   Session: 'Session',
   Account: 'Account',
   Verification: 'Verification'
@@ -77,6 +79,9 @@ export const UserScalarFieldEnum = {
   name: 'name',
   emailVerified: 'emailVerified',
   image: 'image',
+  slug: 'slug',
+  timezone: 'timezone',
+  bio: 'bio',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -84,15 +89,53 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
-export const PostScalarFieldEnum = {
+export const EventTypeScalarFieldEnum = {
   id: 'id',
+  userId: 'userId',
   title: 'title',
-  content: 'content',
-  published: 'published',
-  authorId: 'authorId'
+  description: 'description',
+  duration: 'duration',
+  slug: 'slug',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
-export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
+export type EventTypeScalarFieldEnum = (typeof EventTypeScalarFieldEnum)[keyof typeof EventTypeScalarFieldEnum]
+
+
+export const BookingScalarFieldEnum = {
+  id: 'id',
+  eventTypeId: 'eventTypeId',
+  userId: 'userId',
+  guestName: 'guestName',
+  guestEmail: 'guestEmail',
+  guestNotes: 'guestNotes',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  timezone: 'timezone',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BookingScalarFieldEnum = (typeof BookingScalarFieldEnum)[keyof typeof BookingScalarFieldEnum]
+
+
+export const AvailabilityScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  dayOfWeek: 'dayOfWeek',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AvailabilityScalarFieldEnum = (typeof AvailabilityScalarFieldEnum)[keyof typeof AvailabilityScalarFieldEnum]
 
 
 export const SessionScalarFieldEnum = {
