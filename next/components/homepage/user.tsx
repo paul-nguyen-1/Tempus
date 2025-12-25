@@ -109,10 +109,12 @@ export function UserHome() {
               <h2 className="text-xl font-semibold">Your Booking Link</h2>
             </div>
             <div className="flex items-center gap-3">
-              <div className="flex-1 rounded-md border bg-muted px-4 py-3 text-sm font-mono">
-                {typeof window !== "undefined"
-                  ? `${window.location.origin}/profile/book/${session?.user?.id}`
-                  : `tempus.app/profile/book/${session?.user?.id}`}
+              <div className="flex-1 rounded-md border bg-muted px-4 py-3 text-sm font-mono overflow-hidden">
+                <div className="truncate">
+                  {typeof window !== "undefined"
+                    ? `${window.location.origin}/profile/book/${session?.user?.id}`
+                    : `tempus.app/profile/book/${session?.user?.id}`}
+                </div>
               </div>
               <button
                 onClick={() => {

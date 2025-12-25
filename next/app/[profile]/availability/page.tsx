@@ -184,7 +184,7 @@ export default function Availability({
                     : "border hover:bg-secondary"
                 )}
               >
-                Specific Date
+                Day
               </button>
               <button
                 onClick={() => setAvailabilityType("RECURRING")}
@@ -195,7 +195,7 @@ export default function Availability({
                     : "border hover:bg-secondary"
                 )}
               >
-                Recurring Weekly
+                Weekly
               </button>
               <button
                 onClick={() => setAvailabilityType("DATE_RANGE")}
@@ -206,7 +206,7 @@ export default function Availability({
                     : "border hover:bg-secondary"
                 )}
               >
-                Date Range
+                Range
               </button>
             </div>
           </div>
@@ -317,9 +317,9 @@ export default function Availability({
             >
               <div>
                 <p className="text-sm font-medium">
-                  {entry.type === "RECURRING" && "🔄 Recurring"}
-                  {entry.type === "DATE_RANGE" && "📅 Date Range"}
-                  {entry.type === "SPECIFIC_DATE" && "📌 Specific Date"}
+                  {entry.type === "RECURRING" && "🔄 Weekly"}
+                  {entry.type === "DATE_RANGE" && "📅 Range"}
+                  {entry.type === "SPECIFIC_DATE" && "📌 Day"}
                 </p>
                 <p className="text-sm text-muted-foreground">
                   {formatAvailabilityEntry(entry)}
