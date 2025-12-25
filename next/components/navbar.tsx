@@ -28,12 +28,12 @@ export function Navbar() {
 
   return (
     <nav className="border-b">
-      <div className="flex h-16 items-center px-4 max-w-7xl mx-auto">
-        <div className="flex items-center gap-6 flex-1">
-          <Link href="/" className="font-bold text-xl">
-            Tempus
-          </Link>
+      <div className="relative flex h-16 items-center px-4 max-w-7xl mx-auto">
+        <Link href="/" className="font-bold text-xl">
+          Tempus
+        </Link>
 
+        <div className="absolute left-1/2 -translate-x-1/2 md:pb-4">
           <NavigationMenu viewport={isMobile}>
             <NavigationMenuList>
               <NavigationMenuItem>
@@ -42,11 +42,11 @@ export function Navbar() {
                   className={navigationMenuTriggerStyle()}
                 >
                   <Link
-                    href="/profile/dashboard"
+                    href="/profile/analytics"
                     className="flex items-center gap-2"
                   >
                     <LayoutDashboard className="h-4 w-4" />
-                    <span className="hidden sm:inline">Dashboard</span>
+                    <span className="hidden sm:inline">Analytics</span>
                   </Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
@@ -63,7 +63,7 @@ export function Navbar() {
                         className="flex items-center gap-2"
                       >
                         <Link2 className="h-4 w-4" />
-                        <span className="hidden sm:inline">My Page</span>
+                        <span className="hidden sm:inline">Booking</span>
                       </Link>
                     </NavigationMenuLink>
                   </NavigationMenuItem>

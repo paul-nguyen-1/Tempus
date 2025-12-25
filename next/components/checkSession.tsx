@@ -11,14 +11,14 @@ export function CheckSession({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
 
-  const publicRoutes = ["/login", "/signup"];
+  const publicRoutes = ["/", "/login", "/signup"];
   const bookingRoutes = pathname.startsWith("/profile/book/");
   const isPublicRoute = publicRoutes.includes(pathname) || bookingRoutes;
 
   useEffect(() => {
     if (isPending) return;
 
-    if (session && publicRoutes.includes(pathname)) {
+    if (session && ["/login", "/signup"].includes(pathname)) {
       router.replace("/");
       return;
     }
@@ -32,14 +32,14 @@ export function CheckSession({ children }: { children: React.ReactNode }) {
   if (
     isPending ||
     (!session && !isPublicRoute) ||
-    (session && publicRoutes.includes(pathname))
+    (session && ["/login", "/signup"].includes(pathname))
   ) {
     return <Loader />;
   }
 
   return (
     <>
-      {session && !publicRoutes.includes(pathname) && <Navbar />}
+      {session && !["/login", "/signup"].includes(pathname) && <Navbar />}
       {children}
     </>
   );

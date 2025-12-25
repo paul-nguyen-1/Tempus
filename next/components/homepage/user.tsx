@@ -172,8 +172,8 @@ export function UserHome() {
             <h2 className="text-2xl font-semibold">Quick Actions</h2>
             <div className="grid gap-4 md:grid-cols-3">
               <ActionCard
-                href="/dashboard"
-                title="View Dashboard"
+                href="/analytics"
+                title="View Analytics"
                 description="Detailed analytics and insights"
                 icon={<LayoutDashboard className="h-5 w-5" />}
               />
