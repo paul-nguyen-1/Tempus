@@ -1,5 +1,5 @@
-import { Prisma } from "@/app/generated/prisma/browser";
-import { PrismaClient } from "@/app/generated/prisma/client";
+import { Prisma } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
