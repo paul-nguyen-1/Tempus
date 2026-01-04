@@ -27,7 +27,7 @@ export function Navbar() {
   };
 
   return (
-    <nav className="border-b">
+    <nav className="border-b sticky top-0 bg-background z-50">
       <div className="relative flex h-16 items-center px-4 max-w-7xl mx-auto">
         <Link href="/" className="font-bold text-xl">
           Tempus
