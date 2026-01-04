@@ -214,7 +214,7 @@ export function UserHome() {
             </h2>
             <div className="space-y-3">
               <ActionCard
-                href="/analytics"
+                href="/profile/analytics"
                 title="Analytics"
                 description="View detailed insights"
                 icon={<LayoutDashboard className="h-5 w-5" />}
