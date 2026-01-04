@@ -4,8 +4,7 @@ import nodemailer from "nodemailer";
 import prisma from "@/lib/prisma";
 
 export async function POST(request: Request) {
-  const { name, email, date, time, duration, userId, eventTypeId } =
-    await request.json();
+  const { name, email, date, time, duration, userId } = await request.json();
 
   const [hours, minutes] = time.split(":").map(Number);
   const startDate = new Date(date);
@@ -24,10 +23,30 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
+    let eventType = await prisma.eventType.findFirst({
+      where: {
+        userId,
+        duration: duration,
+        isActive: true,
+      },
+    });
+
+    if (!eventType) {
+      eventType = await prisma.eventType.create({
+        data: {
+          userId,
+          title: `${duration} min Meeting`,
+          duration: duration,
+          slug: `meeting-${duration}`,
+          isActive: true,
+        },
+      });
+    }
+
     const booking = await prisma.booking.create({
       data: {
         userId,
-        eventTypeId,
+        eventTypeId: eventType.id,
         guestName: name,
         guestEmail: email,
         startTime: startDate,

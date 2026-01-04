@@ -160,8 +160,11 @@ export default function Availability({
 
   if (loading) {
     return (
-      <div className="rounded-lg border p-6 shadow-sm">
-        <p className="text-sm text-muted-foreground">Loading availability...</p>
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading...</p>
+        </div>
       </div>
     );
   }
